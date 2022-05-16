@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
 
 passwords={}
-passwords['email@example'] = "qwerty5"
+passwords['email@example.com'] = "qwerty5"
 
 messages = [{'title': 'Message One',
              'content': 'Message One Content'},
@@ -25,10 +25,8 @@ messages = [{'title': 'Message One',
 # ...
 
 @app.route('/')
-def home():
-    # print(findBirths("11/29", "1982"))
-    # return json.dumps(findBirths("11/29", "1982"))
-    return render_template("home.html")
+def redirectToLogin():
+    return redirect("/login")
 
 @app.route('/test')  
 def test():
@@ -48,6 +46,10 @@ def login():
             #     login_user(user)
                 return redirect('/birthdays')
     return render_template("login.html",form=form)
+
+@app.route("/logout")
+def logout():
+    return redirect('/login')
 
 @app.route('/birthdays', methods=('GET', 'POST'))
 def birthdays():
