@@ -1,0 +1,60 @@
+{% extends "base_start.html" %}
+{% set active_page = 'Test' %}
+{% block title %} Famous Birthdays {% endblock %}
+{% block content %}
+<div class="container">
+    <div class="w-75">
+        <form method="post">
+            <label for="title">Month</label>
+            <br>
+            <input type="text" name="month"
+                placeholder="Enter a month of the year"
+                value="{{ request.form['month'] }}"></input>
+            <br>
+            <label for="title">Day</label>
+            <br>
+            <input type="text" name="day"
+                placeholder="Enter a day of the month"
+                value="{{ request.form['day'] }}"></input>
+            <br>
+            <label for="title">Year</label>
+            <br>
+            <input type="text" name="year"
+                placeholder="Enter a Year"
+                value="{{ request.form['year'] }}"></input>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+
+    {{loading}}
+    {% if loading == 1 %}
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Year</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+            {% for birthday in birthdays %}
+                <!-- <li>{{birthday['text']}}</li> -->
+                <tr>
+                    <td class="align-middle">{{ loop.index0 +1 }}</td>
+                    <td class="align-middle"> <img src={{ birthday['thumbnail'] }} class="img-thumbnail" style="max-height:50px;max-width:50px;">{{ birthday['text'] }}</td>			
+                    <td class="align-middle">{{ birthday['year']}}</td>			
+                </tr>
+            {% endfor %}
+        </tbody >
+    </table>
+</div>    
+</div>    
+
+ {% endblock %}
+
+
